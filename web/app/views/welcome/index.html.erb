@@ -13,62 +13,69 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/app/assests/stylesheets/welcome.scss">
-</head>
+  </head>
+  <div class="container-fluid" style="padding-bottom: 4%;">
+      <h1>Oligonucelotide Finder</h1>
+  </div>
+  <body>
+    <div class="submission container-fluid">
+      <h3>
+        <!-- Setup for use with other systems not just windows --!>
+        <label for="input">Choose a FastA File:</label>
+        <input class="submitButton" type="file" id="input" name="input" accept="text/FastA">
+      </h3>
+      <h3>
+        Parameters
+      </h3>
+      <p>
+        <label for="temperature">
+          Melting Points</label>
+        <input type="text" id="temperature" readonly="readonly" style="border:0; color:#f6931f; font-weight:bold;">
+      </p>
+      <div class="container-fluid" id="slider-range"></div>
 
-<body>
-    <div style="container-fluid" style="padding: 15px">
-        <h2>
-            FastA File Submission<br>
-            <button class="submitButton"> Submit Here </button>
-        </h2>
-        <h2> Parameters </h2>
-        <p>
-            <label for="temperature"> Melting Points</label>
-            <input type="text" id="temperature" readonly style="border:0; color:#f6931f; font-weight:bold;">
-        </p>
-        <div id="slider-range"></div>
+      <p>
+        <label for="bp">Oligonucelotide Length:</label>
+        <input type="text" id="bp" readonly="readonly" style="border:0; color:#f6931f; font-weight:bold;">
+      </p>
 
-        <p>
-           <label for="bp">Oligonucelotide Length:</label>
-           <input type="text" id="bp" readonly style="border:0; color:#f6931f; font-weight:bold;">
-        </p>
-
-        <div id="slider-range2"></div>
+      <div class = "container-fluid" id="slider-range2"></div>
     </div>
 
+  </body>
 
-</body>
-
-<script>
-    $(function() {
-        $("#slider-range").slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [0, 70],
-            slide: function(event, ui) {
-                $("#temperature").val(ui.values[0] + "C - " + ui.values[1] + "C");
-            }
-        });
-        $("temperature").val( $("#slider-range").slider("values", 0) +
-            "C - " + $("#slider-range").slider("values", 1) + "C");
+  <script>
+    $(function () {
+      $("#slider-range").slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [
+          0, 70
+        ],
+        slide: function (event, ui) {
+          $("#temperature").val(ui.values[0] + "C - " + ui.values[1] + "C");
+        }
+      });
+      $("temperature").val($("#slider-range").slider("values", 0) + "C - " + $("#slider-range").slider("values", 1) + "C");
     });
-</script>
+  </script>
 
-<script>
-  $( function() {
-    $( "#slider-range2" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 0, 50 ],
-      slide: function( event, ui ) {
-        $( "#bp" ).val(+ ui.values[ 0 ] + "bp - " + ui.values[ 1 ] +"bp" );
-      }
+  <script>
+    $(function () {
+      $("#slider-range2").slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [
+          0, 50
+        ],
+        slide: function (event, ui) {
+          $("#bp").val(+ui.values[0] + "bp - " + ui.values[1] + "bp");
+        }
+      });
+      $("#bp").val($("#slider-range2").slider("values", 0) + "bp - " + $("#slider-range").slider("values", 1) + "bp");
     });
-    $( "#bp" ).val( $( "#slider-range2" ).slider( "values", 0 ) +
-      "bp - " + $( "#slider-range" ).slider( "values", 1 ) + "bp" );
-  } );
   </script>
 
 </html>
