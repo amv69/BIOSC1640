@@ -1,18 +1,18 @@
 # README
 
-### Versioning 
-* ruby version 2.6.1
-* rails version 5.2.2
-* gem version 3.0.1
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-### Configuration
+Things you may want to cover:
 
-* Add
+* Ruby version
 
-### Database creation
-* db:create
+* System dependencies
 
-### Things to Add
+* Configuration
+
+* Database creation
+
 * Database initialization
 
 * How to run the test suite
