@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from forms import Parameters
+export PYTHONPATH=/BIOSC1640/flask/backEnd/python
 import Oligo
 app = Flask(__name__)
 
