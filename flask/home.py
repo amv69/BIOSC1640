@@ -27,7 +27,8 @@ def about():
 
 @app.route("/submit")
 def submit():
-    return render_template('submit.html', title='Submit', form='form')
+    form = Parameters()
+    return render_template('submit.html', title='Submit', form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)

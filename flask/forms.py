@@ -3,7 +3,7 @@ from wtforms import IntegerField, SubmitField, StringField
 from wtforms.validators import DataRequired, Optional
 
 class Parameters(FlaskForm):
-    fastA = StringField('fastA', validators=[Optional()])
+    fastA = StringField('fastA', validators=[DataRequired()])
     lengthOne = IntegerField('lengthOne', validators=[DataRequired()])
     lengthTwo = IntegerField('lengthTwo', validators=[DataRequired()])
     tempOne = IntegerField('tempOne', validators=[DataRequired()])
