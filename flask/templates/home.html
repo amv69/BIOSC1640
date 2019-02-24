@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="container-fluid" style="padding-bottom: 4%;">
+      <h1>Oligonucelotide Finder</h1>
+  </div>
+    <div class="submission container-fluid">
+      <h3>
+        <label for="input">Choose a FastA File:</label>
+        <input class="submitButton" type="file" id="input" name="input" accept="text/FastA">
+      </h3>
+      <h3>
+        Parameters
+      </h3>
+      <form>
+        Melting Point:<br>
+        Minimum Temperature:
+	<input type="text" name="tempOne">
+        Maximum Temperature:
+        <input type="text" name="tempTwo"><br>
+        Oligonucleotide Length:<br>
+        Minimum Length:
+        <input type="text" name="lengthOne">
+        Maximum Length:
+        <input type="text" name="lengthTwo">
+      </form><br>
+	<div class="container-fluid">
+		{% for data in data %}
+		<h4> Results of {{ data.fastA }} </h4><br>
+		<p> with length between {{ data.lengthOne }} and {{data.lengthTwo }} <br>
+		and Melting Temperature between {{ data.tempOne }} and {{ data.tempTwo }} </p>
+		{% endfor %}
+			
+	</div>
+{% endblock content %}
+
