@@ -4,9 +4,9 @@ from wtforms.validators import DataRequired, Optional
 
 class Parameters(FlaskForm):
     fastA = StringField('FastA', validators=[DataRequired()])
-    lengthOne = IntegerField('Length One', validators=[DataRequired()])
-    lengthTwo = IntegerField('Length Two', validators=[DataRequired()])
-    tempOne = IntegerField('Temperature One', validators=[DataRequired()])
-    tempTwo = IntegerField('Temperature Two', validators=[DataRequired()])
+    lengthOne = IntegerField('Length Minimum', validators=[DataRequired()])
+    lengthTwo = IntegerField('Length Maximum', validators=[DataRequired()])
+    tempOne = IntegerField('Temperature Minimum', validators=[DataRequired()])
+    tempTwo = IntegerField('Temperature Maximum', validators=[DataRequired()])
     submit = SubmitField('SUBMIT')
 
