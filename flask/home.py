@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 from forms import Parameters
-import Oligo
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '051259712ab12de981acb'
@@ -28,7 +27,7 @@ def about():
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
     form = Parameters()
-    if form.validate_on_submit()
+    if form.validate_on_submit():
         flash(f'Job Started!')
     return render_template('submit.html', title='Submit', form=form)
 
