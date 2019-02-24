@@ -1,5 +1,8 @@
 from flask import Flask, render_template
+from forms import Parameters
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = '051259712ab12de981acb'
 
 data = [
     {
@@ -15,7 +18,8 @@ data = [
 @app.route("/")
 @app.route("/home")
 def hello():
-    return render_template('home.html', data=data)
+    form = Parameters()
+    return render_template('home.html', data=data, form='form')
 
 @app.route("/about")
 def about():
