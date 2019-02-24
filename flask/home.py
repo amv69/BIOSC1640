@@ -19,11 +19,15 @@ data = [
 @app.route("/home")
 def hello():
     form = Parameters()
-    return render_template('home.html', data=data, form='form')
+    return render_template('home.html', data=data)
 
 @app.route("/about")
 def about():
     return render_template('about.html', title='About')
+
+@app.route("/submit")
+def submit():
+    return render_template('submit.html', title='Submit', form='form')
 
 if __name__ == '__main__':
     app.run(debug=True)
