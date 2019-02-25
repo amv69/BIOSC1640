@@ -9,16 +9,17 @@
             from the Lee Lab (University of Pittsburgh) Incase you forgot what DNA looks like, look to the right.<br>
             <a href="/submit.html">Click here to get started!</a>
         </h3>
-        <div class="container-fluid col-md">
-            <img src="static/rna.png" width="500" height="600">
-        </div>
     </div>
-    <div class="container-fluid">
-        <h3> This is all test info, ignore it </h3>
-        {% for data in data %}
-        <h4> Results of {{ data.fastA }} </h4><br>
-        <p> with length between {{ data.lengthOne }} and {{data.lengthTwo }} <br>
-            and Melting Temperature between {{ data.tempOne }} and {{ data.tempTwo }} </p>
-        {% endfor %}
+    <div class="container-fluid col-md">
+        <img src="static/rna.png" width="500" height="600">
     </div>
-    {% endblock content %}
+</div>
+<div class="container-fluid">
+    <h3> This is all test info, ignore it </h3>
+    {% for data in data %}
+    <h4> Results of {{ data.fastA }} </h4><br>
+    <p> with length between {{ data.lengthOne }} and {{data.lengthTwo }} <br>
+        and Melting Temperature between {{ data.tempOne }} and {{ data.tempTwo }} </p>
+    {% endfor %}
+</div>
+{% endblock content %}
