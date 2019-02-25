@@ -6,26 +6,35 @@
             <legend class="border-bottom mb-4">Submit FastA</legend>
             <div class="form-group col-lg-12">
                 {{ form.fastA.label(class_="form-control-label") }}
-                {{ form.fastA(class="form-control form-control-lg", rows="3") }}
-            </div><br>
+                {{ form.fastA(class="form-control form-control-lg" }}
+            </div><
             <div class="form-group col-md-6">
                 {{ form.lengthOne.label(class_="form-control-label") }}
                 {{ form.lengthOne(class="form-control") }}
-                <small id="lenghtOneBlock" class="text-muted">
+                <small class="text-muted">
                     Should not be smaller than X
                 </small>
             </div>
             <div class="form-group col-md-6">
                 {{ form.lengthTwo.label(class_="form-control-label") }}
                 {{ form.lengthTwo(class="form-control form-control-lg") }}
-            </div><br>
+                <small class="text-muted">
+                    Should not be larger than X
+                </small>
+            </div>
             <div class="form-group col-md-6">
                 {{ form.tempOne.label(class_="form-control-label") }}
                 {{ form.tempOne(class="form-control form-control-lg") }}
+                <small class="text-muted">
+                    Should not be smaller than X
+                </small>
             </div>
             <div class="form-group">
                 {{ form.tempTwo.label(class_="form-control-label") }}
                 {{ form.tempTwo(class="form-control form-control-lg") }}
+                <small class="text-muted">
+                    Should not be larger than X
+                </small>
             </div>
         </fieldset>
         <div class="form-group col-md-6">
