@@ -10,7 +10,10 @@
             </div>
             <div class="form-group">
                 {{ form.lengthOne.label(class_="form-control-label") }}
-                {{ form.lengthOne(class="form-control form-control-lg") }}
+                {{ form.lengthOne(class="form-control form-control-lg" aria-describedby="lenghtOneBlock") }}
+                <small id="lenghtOneBlock" class="form-text text-muted">
+                    Should not be smaller than X
+                </small>
             </div>
             <div class="form-group">
                 {{ form.lengthTwo.label(class_="form-control-label") }}
