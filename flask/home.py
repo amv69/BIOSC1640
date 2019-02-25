@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from forms import Parameters
 app = Flask(__name__)
 
@@ -31,6 +31,10 @@ def submit():
         flash(f'Job Started!')
     return render_template('submit.html', title='Submit', form=form)
 
+@app.route("/cite")
+def cite():
+    return render_template('cite.html', title="Cite")
+    
 if __name__ == '__main__':
     app.run(debug=True)
 
