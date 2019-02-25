@@ -34,7 +34,7 @@ def submit():
 @app.route("/cite")
 def cite():
     return render_template('cite.html', title="Cite")
-    
+
 if __name__ == '__main__':
     app.run(debug=True)
 
