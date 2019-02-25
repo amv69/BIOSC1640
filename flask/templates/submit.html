@@ -8,34 +8,38 @@
                 {{ form.fastA.label(class_="form-control-label") }}
                 {{ form.fastA(class="form-control-file", rows="4") }}
             </div>
-                <div class="form-group col-sm-6 mb-4">
+            <div class ="row" align="center">
+                <div class="form-group col mb-4">
                     {{ form.lengthOne.label(class_="form-control-label") }}
                     {{ form.lengthOne(class="form-control") }}
                     <small class="text-muted">
                         Should not be smaller than X
                     </small>
                 </div>
-                <div class="form-group col-sm-6 mb-4">
+                <div class="form-group col mb-4">
                     {{ form.lengthTwo.label(class_="form-control-label") }}
                     {{ form.lengthTwo(class="form-control") }}
                     <small class="text-muted">
                         Should not be larger than X
                     </small>
                 </div>
-                <div class="form-group col-sm-6 mb-4">
+            </div>
+            <div class="row" align="center">
+                <div class="form-group col mb-4">
                     {{ form.tempOne.label(class_="form-control-label") }}
                     {{ form.tempOne(class="form-control") }}
                     <small class="text-muted">
                         Should not be smaller than X
                     </small>
                 </div>
-                <div class="form-group col-sm-6 mb-4">
+                <div class="form-group col mb-4">
                     {{ form.tempTwo.label(class_="form-control-label") }}
                     {{ form.tempTwo(class="form-control") }}
                     <small class="text-muted">
                         Should not be larger than X
                     </small>
                 </div>
+            </div>
         </fieldset>
         <div class="form-group col-md-6">
             {{ form.submit(class="btn btn-outline-info") }}
