@@ -46,7 +46,7 @@ def submit():
         tempTwo = int(tempTwoString[2:-2])
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
-        output2 = pretty_print_oligos(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = 25 ))
+        output2 = pretty_print_oligo(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = 25 ))
         return render_template('submit.html', form=form, output=output, output2=output2)
     return render_template('submit.html', title='Submit', form=form)
     
@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
 #START OF OLIGO.PY
 
-def pretty_print_oligos(seq, oligos):
+def pretty_print_oligo(seq, oligos):
     """
     Also count number of wildcard positions, expansions, oligo seq
     """
