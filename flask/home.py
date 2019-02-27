@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 from flask import Flask, render_template, url_for
 from forms import Parameters
 import bioutil
