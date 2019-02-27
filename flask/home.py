@@ -726,7 +726,7 @@ def submit():
     output = 'Answer will show here'
     if form.validate_on_submit():
         print('test')
-        seq = str({form.fastA.data})
+        seq = str({form.fastA.data})[2:-2]
         lengthOneString = str({form.lengthOne.data})
         lengthTwoString = str({form.lengthTwo.data})
         tempOneString = str({form.tempOne.data})
