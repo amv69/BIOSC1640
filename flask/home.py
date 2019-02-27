@@ -37,7 +37,7 @@ def submit():
         print('test')
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
-        output2 = pretty_print_oligos({form.fastA}, tile_oligos_with_gaps({form.fastA}, min_len = {form.lengthOne}, max_len = int{form.lengthTwo}, min_tm={form.tempOne}, max_tm={form.tempTwo}, max_untiled_len = 25))
+        output2 = pretty_print_oligos({form.fastA}, tile_oligos_with_gaps({form.fastA}, min_len = {form.lengthOne}, max_len = {form.lengthTwo}, min_tm={form.tempOne}, max_tm={form.tempTwo}, max_untiled_len = 25))
         return render_template('submit.html', form=form, output=output, output2=output2)
     return render_template('submit.html', title='Submit', form=form)
     
