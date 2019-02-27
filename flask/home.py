@@ -724,7 +724,7 @@ def pretty_print_oligos(seq, oligos):
     for oligo in oligos[1:-1]:
         subseq = seq[oligo[0]:oligo[1]]
         x_count, wc_count, expand_count = wildcard_stats(subseq)
-        my_list.join('\t'.join([str(oligo[0]+1), str(oligo[1]), str(oligo[1]-oligo[0]), str(oligo[2]), str(oligo[3]), str(x_count), str(wc_count), str(expand_count), subseq, bioutil.rc(subseq)]))
+        my_list.add('\t'.join([str(oligo[0]+1), str(oligo[1]), str(oligo[1]-oligo[0]), str(oligo[2]), str(oligo[3]), str(x_count), str(wc_count), str(expand_count), subseq, bioutil.rc(subseq)]))
     return my_list
 
     #str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
