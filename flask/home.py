@@ -31,6 +31,16 @@ def about():
 
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
+    def pretty_print_oligo(seq, oligos):
+        """
+        Also count number of wildcard positions, expansions, oligo seq
+        """
+        my_list = ""
+        for oligo in oligos[1:-1]:
+            subseq = seq[oligo[0]:oligo[1]]
+            x_count, wc_count, expand_count = wildcard_stats(subseq)
+            my_list = my_list + ('\t'.join([str(oligo[0]+1), str(oligo[1]), str(oligo[1]-oligo[0]), str(oligo[2]), str(oligo[3]), str(x_count), str(wc_count), str(expand_count), subseq, bioutil.rc(subseq)]))
+        return my_list
     form = Parameters()
     output = 'Answer will show here'
     if form.validate_on_submit():
@@ -60,17 +70,6 @@ if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
 
 #START OF OLIGO.PY
-
-def pretty_print_oligo(seq, oligos):
-    """
-    Also count number of wildcard positions, expansions, oligo seq
-    """
-    my_list = ""
-    for oligo in oligos[1:-1]:
-        subseq = seq[oligo[0]:oligo[1]]
-        x_count, wc_count, expand_count = wildcard_stats(subseq)
-        my_list = my_list + ('\t'.join([str(oligo[0]+1), str(oligo[1]), str(oligo[1]-oligo[0]), str(oligo[2]), str(oligo[3]), str(x_count), str(wc_count), str(expand_count), subseq, bioutil.rc(subseq)]))
-    return my_list
 
 
 iupac_wc = {'A': ('A',),
