@@ -32,7 +32,9 @@ def about():
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
     form = Parameters()
+    output = 'Answer will show here'
     if form.validate_on_submit():
+        print('test')
         #output = str((pretty_print_oligos({form.fastA.data}, tile_oligos_with_gaps({form.fastA.data}, min_len = {form.lengthOne.data}, max_len = {form.lengthTwo.data}, min_tm={form.tempOne.data}, max_tm={form.tempTwo.data}, max_untiled_len = 25))))
         output = str(pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25)))
         return render_template('submit.html', form=form, output=output)
