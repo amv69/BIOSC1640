@@ -31,8 +31,7 @@ def about():
 def submit():
     form = Parameters()
     if form.validate_on_submit():
-        testString = (pretty_print_oligos({form.fastA.data}, tile_oligos_with_gaps({form.fastA.data}, min_len = {form.lengthOne.data}, max_len = {form.lengthTwo.data}, min_tm={form.tempOne.data}, max_tm={form.tempTwo.data}, max_untiled_len = 25)))
-        flash(testString)
+        {form.output.data} = str((pretty_print_oligos({form.fastA.data}, tile_oligos_with_gaps({form.fastA.data}, min_len = {form.lengthOne.data}, max_len = {form.lengthTwo.data}, min_tm={form.tempOne.data}, max_tm={form.tempTwo.data}, max_untiled_len = 25))))
     return render_template('submit.html', title='Submit', form=form)
 
 @app.route("/cite")
