@@ -10,4 +10,5 @@ class Parameters(FlaskForm):
     tempOne = IntegerField('Temperature Minimum ', validators=[DataRequired()])
     tempTwo = IntegerField('Temperature Maximum ', validators=[DataRequired()])
     submit = SubmitField('SUBMIT')
+    output = StringField('Output', widget=TextArea())
 
