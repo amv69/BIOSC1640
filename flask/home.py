@@ -62,6 +62,18 @@ if __name__ == '__main__':
 
 #START OF OLIGO.PY
 
+def pretty_print_oligos(seq, oligos):
+    """
+    Also count number of wildcard positions, expansions, oligo seq
+    """
+    my_list = ""
+    for oligo in oligos[1:-1]:
+        subseq = seq[oligo[0]:oligo[1]]
+        x_count, wc_count, expand_count = wildcard_stats(subseq)
+        my_list = my_list + ('\t'.join([str(oligo[0]+1), str(oligo[1]), str(oligo[1]-oligo[0]), str(oligo[2]), str(oligo[3]), str(x_count), str(wc_count), str(expand_count), subseq, bioutil.rc(subseq)]))
+    return my_list
+
+
 iupac_wc = {'A': ('A',),
             'C': ('C',),
             'G': ('G',),
@@ -726,16 +738,6 @@ def tile_oligos_with_gaps(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len =
     return oligos
 
 
-def pretty_print_oligos(seq, oligos):
-    """
-    Also count number of wildcard positions, expansions, oligo seq
-    """
-    my_list = ""
-    for oligo in oligos[1:-1]:
-        subseq = seq[oligo[0]:oligo[1]]
-        x_count, wc_count, expand_count = wildcard_stats(subseq)
-        my_list = my_list + ('\t'.join([str(oligo[0]+1), str(oligo[1]), str(oligo[1]-oligo[0]), str(oligo[2]), str(oligo[3]), str(x_count), str(wc_count), str(expand_count), subseq, bioutil.rc(subseq)]))
-    return my_list
 
     #str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
 
