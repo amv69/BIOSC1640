@@ -237,7 +237,7 @@ def do_tm(seq, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna'):
     return calculate_tm(sum_dh, sum_ds, helix_init, C, Na_concen)
 
 
-def iterative_tms(seq, start_at = 0, min_len = 40, max_len = 50, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna', min_tm = 70, max_tm = 80, strict = True):
+def iterative_tms(seq, start_at = 0, min_len, max_len, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna',min_tm, max_tm, strict = True):
     """
     Calculates Tm for all prefixes, retaining only the
     ones with acceptable length.
@@ -280,7 +280,7 @@ def iterative_tms(seq, start_at = 0, min_len = 40, max_len = 50, C = 0.00000005,
     return tms, acceptable_lens
 
 
-def iterative_tms_wc(seq, start_at = 0, min_len = 40, max_len = 50, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna', min_tm = 70, max_tm = 80, strict = True, max_num_wildcards = 2):
+def iterative_tms_wc(seq, start_at = 0, min_len, max_len, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna',min_tm, max_tm, strict = True, max_num_wildcards = 2):
     """
     Calculates Tm for all prefixes, retaining only the
     ones with acceptable length. Support for wildcard bases,
@@ -337,7 +337,7 @@ def iterative_tms_wc(seq, start_at = 0, min_len = 40, max_len = 50, C = 0.000000
     return tms, oligo_lens
 
 
-def generate_tms(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len = 50, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna', strict = True):
+def generate_tms(seq,min_tm, max_tm, min_len, max_len, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna', strict = True):
     """
     Calculates all possible tms iteratively starting at each position.
     Also calculates the median length of oligo within the tm range
@@ -361,7 +361,7 @@ def generate_tms(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len = 50, C = 
         return tms, min_len
 
     
-def tile_oligos(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len = 50, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna'):
+def tile_oligos(seq,min_tm, max_tm, min_len, max_len, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna'):
     """
     TODO: store intermediate solutions, propose overlap
     """
@@ -583,7 +583,7 @@ def oligo_set_score(oligos, min_tm, max_tm, min_len, max_len, max_untiled_len):
     return length_violations, round(tm_deviations ** (1.0/(len(oligos)-2)), 3)
 
         
-def find_oligo_set(seq, tms, target_oligo_len, min_tm = 70, max_tm = 80, min_len = 40, max_len = 50, max_untiled_len = 25):
+def find_oligo_set(seq, tms, target_oligo_len,min_tm, max_tm, min_len, max_len, max_untiled_len = 25):
 
     #Estimate the number of oligos
     min_n_oligos = math.ceil((len(seq) - max_untiled_len) / (max_len + max_untiled_len))
@@ -649,7 +649,7 @@ def find_oligo_set(seq, tms, target_oligo_len, min_tm = 70, max_tm = 80, min_len
         print("No acceptable solution found")
 
 
-def tile_oligos_with_gaps(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len = 50, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna', max_untiled_len = 25):
+def tile_oligos_with_gaps(seq,min_tm, max_tm, min_len, max_len, C = 0.00000005, Na_concen = 0.2, molec = 'dnarna', max_untiled_len = 25):
     """
     Returns an oligo list tuple: (start, end, Tm)
     """
@@ -688,7 +688,7 @@ def pretty_print_oligos(seq, oligos):
 
     
 seq = 'GACTCTTAGCRGYGGATXACTCGGCTCGTGCGTCGATGAAGAACGCAGCTAGCTGCGAGAATTAATGTGAATTGCAGGACACATTGATCATCGACACTTCGAACGCACTTGCGGCCCCGGGTTCCTCCCGGGGCTACGCCTGTCTGAGCGTCGGTTG'
-#pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25)) #mouse 5.8S
+#pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len, max_len, min_tm=70, max_tm=80,max_untiled_len = 25)) #mouse 5.8S
 
 
 frag_28s = 'atggatggcgctggagcgtcgggcccatacccggccgtcg'
@@ -735,7 +735,7 @@ def submit():
         lengthTwo = int(lengthTwoString[2:-2])
         tempOne = int(tempOneString[2:-2])
         tempTwo = int(tempTwoString[2:-2])
-        #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
+        #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len, max_len, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
         output2 = pretty_print_oligos(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = 25 ))
         return render_template('submit.html', form=form, output=output, output2=output2)
