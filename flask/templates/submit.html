@@ -44,12 +44,8 @@
         <div class="form-group col-md-6">
             {{ form.submit(class="btn btn-outline-info") }}
         </div>
-        <div class="form-group col-md-12 mb-4">
-                {{ form.output.label(class_="form-control-label") }}
-                {{ form.output(class="form-control-file", rows="4") }}
-
-            </div>
     </form>
-    <textarea rows="4">{{ output }}</textarea>{{ output }}
+    <p>Output</p><br>
+    <textarea class="form-control-file" rows="4">{{ output }}</textarea>
 </div>
 {% endblock content %}
