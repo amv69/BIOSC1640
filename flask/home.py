@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from flask import Flask, render_template, url_for
 from forms import Parameters
 import bioutil
@@ -5,72 +6,8 @@ import math
 import time
 import subprocess
 
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = '051259712ab12de981acb'
-
-data = [
-    {
-        'fastA': 'ATCG',
-        'lengthOne': '5',
-        'lengthTwo': '10',
-        'tempOne': '20',
-        'tempTwo': '40',
-    }
-
-]
-
-@app.route("/")
-@app.route("/home")
-def hello():
-    return render_template('home.html', data=data)
-
-@app.route("/about")
-def about():
-    return render_template('about.html', title='About')
-
-@app.route("/submit", methods=['GET', 'POST'])
-def submit():
-    def pretty_print_oligo(seq, oligos):
-        """
-        Also count number of wildcard positions, expansions, oligo seq
-        """
-        my_list = ""
-        for oligo in oligos[1:-1]:
-            subseq = seq[oligo[0]:oligo[1]]
-            x_count, wc_count, expand_count = wildcard_stats(subseq)
-            my_list = my_list + ('\t'.join([str(oligo[0]+1), str(oligo[1]), str(oligo[1]-oligo[0]), str(oligo[2]), str(oligo[3]), str(x_count), str(wc_count), str(expand_count), subseq, bioutil.rc(subseq)]))
-        return my_list
-    form = Parameters()
-    output = 'Answer will show here'
-    if form.validate_on_submit():
-        print('test')
-        seq = str({form.fastA.data})
-        lengthOneString = str({form.lengthOne.data})
-        lengthTwoString = str({form.lengthTwo.data})
-        tempOneString = str({form.tempOne.data})
-        tempTwoString = str({form.tempTwo.data})
-        lengthOne = int(lengthOneString[2:-2])
-        lengthTwo = int(lengthTwoString[2:-2])
-        tempOne = int(tempOneString[2:-2])
-        tempTwo = int(tempTwoString[2:-2])
-        #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
-        output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
-        output2 = pretty_print_oligo(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = 25 ))
-        return render_template('submit.html', form=form, output=output, output2=output2)
-    return render_template('submit.html', title='Submit', form=form)
-    
-    
-
-@app.route("/cite")
-def cite():
-    return render_template('cite.html', title="Cite")
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
 
 #START OF OLIGO.PY
-
 
 iupac_wc = {'A': ('A',),
             'C': ('C',),
@@ -736,6 +673,16 @@ def tile_oligos_with_gaps(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len =
     return oligos
 
 
+def pretty_print_oligos(seq, oligos):
+    """
+    Also count number of wildcard positions, expansions, oligo seq
+    """
+    my_list = ""
+    for oligo in oligos[1:-1]:
+        subseq = seq[oligo[0]:oligo[1]]
+        x_count, wc_count, expand_count = wildcard_stats(subseq)
+        my_list = my_list + ('\t'.join([str(oligo[0]+1), str(oligo[1]), str(oligo[1]-oligo[0]), str(oligo[2]), str(oligo[3]), str(x_count), str(wc_count), str(expand_count), subseq, bioutil.rc(subseq)]))
+    return my_list
 
     #str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
 
@@ -746,3 +693,59 @@ seq = 'GACTCTTAGCRGYGGATXACTCGGCTCGTGCGTCGATGAAGAACGCAGCTAGCTGCGAGAATTAATGTGAATT
 
 frag_28s = 'atggatggcgctggagcgtcgggcccatacccggccgtcg'
 frag_28s = 'ccgggttaaggcgcccgatgccgacgctcatcagacccca'
+
+#START OF SERVER CODE
+
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = '051259712ab12de981acb'
+
+data = [
+    {
+        'fastA': 'ATCG',
+        'lengthOne': '5',
+        'lengthTwo': '10',
+        'tempOne': '20',
+        'tempTwo': '40',
+    }
+
+]
+
+@app.route("/")
+@app.route("/home")
+def hello():
+    return render_template('home.html', data=data)
+
+@app.route("/about")
+def about():
+    return render_template('about.html', title='About')
+
+@app.route("/submit", methods=['GET', 'POST'])
+def submit():
+    form = Parameters()
+    output = 'Answer will show here'
+    if form.validate_on_submit():
+        print('test')
+        seq = str({form.fastA.data})
+        lengthOneString = str({form.lengthOne.data})
+        lengthTwoString = str({form.lengthTwo.data})
+        tempOneString = str({form.tempOne.data})
+        tempTwoString = str({form.tempTwo.data})
+        lengthOne = int(lengthOneString[2:-2])
+        lengthTwo = int(lengthTwoString[2:-2])
+        tempOne = int(tempOneString[2:-2])
+        tempTwo = int(tempTwoString[2:-2])
+        #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
+        output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
+        output2 = pretty_print_oligos(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = 25 ))
+        return render_template('submit.html', form=form, output=output, output2=output2)
+    return render_template('submit.html', title='Submit', form=form)
+    
+    
+
+@app.route("/cite")
+def cite():
+    return render_template('cite.html', title="Cite")
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
