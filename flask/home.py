@@ -31,10 +31,11 @@ def about():
 
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
+    print('valid')
     form = Parameters()
     if form.validate_on_submit():
         output = str((pretty_print_oligos({form.fastA.data}, tile_oligos_with_gaps({form.fastA.data}, min_len = {form.lengthOne.data}, max_len = {form.lengthTwo.data}, min_tm={form.tempOne.data}, max_tm={form.tempTwo.data}, max_untiled_len = 25))))
-        print('valid')
+        
         return render_template('submit.html', output=output)
     return render_template('submit.html', title='Submit', form=form)
     
