@@ -2,6 +2,8 @@ from flask import Flask, render_template, url_for
 from forms import Parameters
 import bioutil
 import math
+import time
+import subprocess
 
 app = Flask(__name__)
 
@@ -31,7 +33,19 @@ def about():
 def submit():
     form = Parameters()
     if form.validate_on_submit():
-        {form.output.data} = str((pretty_print_oligos({form.fastA.data}, tile_oligos_with_gaps({form.fastA.data}, min_len = {form.lengthOne.data}, max_len = {form.lengthTwo.data}, min_tm={form.tempOne.data}, max_tm={form.tempTwo.data}, max_untiled_len = 25))))
+        def inner():
+            proc = subprocess.Popen(
+            pretty_print_oligos({form.fastA.data}, tile_oligos_with_gaps({form.fastA.data}, min_len = {form.lengthOne.data}, max_len = {form.lengthTwo.data}, min_tm={form.tempOne.data}, max_tm={form.tempTwo.data}, max_untiled_len = 25)),             #call something with a lot of output so we can see it
+            shell=True,
+            stdout=subprocess.PIPE
+        )
+
+        for line in iter(proc.stdout.readline,''):
+            time.sleep(1)                           # Don't need this just shows the text streaming
+            yield line.rstrip() + '<br/>\n'
+
+    return flask.Response(inner(), mimetype='text/html')
+        
     return render_template('submit.html', title='Submit', form=form)
 
 @app.route("/cite")
