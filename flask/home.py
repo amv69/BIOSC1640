@@ -719,6 +719,7 @@ def pretty_print_oligos(seq, oligos):
     """
     Also count number of wildcard positions, expansions, oligo seq
     """
+    my_list = []
     for oligo in oligos[1:-1]:
         subseq = seq[oligo[0]:oligo[1]]
         x_count, wc_count, expand_count = wildcard_stats(subseq)
