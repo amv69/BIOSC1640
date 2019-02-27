@@ -37,9 +37,7 @@ def submit():
         print('test')
         d = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
-        output2 = ""
-        for i in d:
-            output2.join(i)
+        output2 = ''.join(map(str, d))
         #output = str((pretty_print_oligos({form.fastA.data}, tile_oligos_with_gaps({form.fastA.data}, min_len = {form.lengthOne.data}, max_len = {form.lengthTwo.data}, min_tm={form.tempOne.data}, max_tm={form.tempTwo.data}, max_untiled_len = 25))))
         return render_template('submit.html', form=form, output=output, output2=output2)
     return render_template('submit.html', title='Submit', form=form)
@@ -728,7 +726,7 @@ def pretty_print_oligos(seq, oligos):
         subseq = seq[oligo[0]:oligo[1]]
         x_count, wc_count, expand_count = wildcard_stats(subseq)
         my_list.append('\t'.join([str(oligo[0]+1), str(oligo[1]), str(oligo[1]-oligo[0]), str(oligo[2]), str(oligo[3]), str(x_count), str(wc_count), str(expand_count), subseq, bioutil.rc(subseq)]))
-    return (my_list)
+    return my_list
 
     #str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
 
