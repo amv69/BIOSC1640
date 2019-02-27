@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from flask import Flask, render_template, url_for
 from forms import Parameters
 import bioutil
@@ -57,7 +58,7 @@ def cite():
     return render_template('cite.html', title="Cite")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
 
 #START OF OLIGO.PY
 
