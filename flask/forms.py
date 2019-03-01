@@ -9,6 +9,7 @@ class Parameters(FlaskForm):
     lengthTwo = StringField('Length Maximum ', validators=[DataRequired()])
     tempOne = StringField('Temperature Minimum ', validators=[DataRequired()])
     tempTwo = StringField('Temperature Maximum ', validators=[DataRequired()])
+    maxTile = StringField('Maximum Tile Length ', validators=[DataRequired()])
     submit = SubmitField('SUBMIT')
     output = StringField('Output', widget=TextArea())
 

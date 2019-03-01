@@ -41,6 +41,15 @@
                     </small>
                 </div>
             </div>
+            <div class="row" align="center">
+                <div class="form-group col mb-4">
+                    {{ form.maxTile.label(class_="form-control-label") }}
+                    {{ form.maxTile(class="form-control") }}
+                    <small class="text-muted">
+                        Should not be smaller than X
+                    </small>
+                </div>
+            </div>
         </fieldset>
         <div class="form-group col-md-6">
             {{ form.submit(class="btn btn-outline-info") }}

@@ -731,13 +731,16 @@ def submit():
         lengthTwoString = str({form.lengthTwo.data})
         tempOneString = str({form.tempOne.data})
         tempTwoString = str({form.tempTwo.data})
+        maxTileString = str({form.maxTile.data})
         lengthOne = int(lengthOneString[2:-2])
         lengthTwo = int(lengthTwoString[2:-2])
         tempOne = int(tempOneString[2:-2])
         tempTwo = int(tempTwoString[2:-2])
+        maxTile = int(maxTileString[2:-2])
+
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
-        output2 = pretty_print_oligos(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = 25 ))
+        output2 = pretty_print_oligos(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = maxTile ))
         return render_template('submit.html', form=form, output=output, output2=output2)
     return render_template('submit.html', title='Submit', form=form)
     
