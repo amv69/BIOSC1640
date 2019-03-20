@@ -5,10 +5,11 @@
     	{{ form.hidden_tag()}}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Submit FastA</legend>
-            <input id="myFile" type="file"/>
+
             <div class="form-group col-md-12 mb-4">
                 {{ form.fastA.label(class_="form-control-label") }}
-                {{ form.fastA(class="form-control-file", rows="4") }}
+                {{ form.fastA(class="form-control-file", rows="4", id="myTextArea") }}
+                <input id="myFile" type="file"/>
             </div>
             <div class ="row" align="center">
                 <div class="form-group col mb-4">
