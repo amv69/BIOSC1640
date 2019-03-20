@@ -8,7 +8,7 @@
 
             <div class="form-group col-md-12 mb-4">
                 {{ form.fastA.label(class_="form-control-label") }}
-                {{ form.fastA(class="form-control-file", rows="4", id="inputTextToSave") }}
+                {{ form.fastA(class="form-control-file", rows="4", id="fileToLoad") }}
                 <p>Select a File to Load:</p> <input type="file" id="fileToLoad"> <button onclick="loadFileAsText()">Load Selected File</button>
             </div>
             <div class ="row" align="center">
@@ -59,8 +59,8 @@
     </form>
     <p>Output:</p><br>
 
-    <textarea class="form-control-file" rows="4" id="save">{{ output }} &#10;&#13;{{ output2 }}</textarea>
-    <input id="inputFileNameToSaveAs"></input>
+    <textarea class="form-control-file" rows="4" id="inputTextToSave">{{ output }} &#10;&#13;{{ output2 }}</textarea>
+    <p>Name of File: <input id="inputFileNameToSaveAs"></input>
     <button onclick="saveTextAsFile()">Save Output to File</button>
 </div>
 {% endblock content %}
