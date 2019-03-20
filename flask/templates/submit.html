@@ -59,8 +59,8 @@
     </form>
     <p>Output:</p><br>
 
-    <textarea class="form-control-file" rows="4" id="my-textarea">{{ output }} &#10;&#13;{{ output2 }}</textarea>
-    <button type="button" onclick="download()">Save</button>
+    <textarea class="form-control-file" rows="4" id="save">{{ output }} &#10;&#13;{{ output2 }}</textarea>
+    <button type="button" value="save" id="save">Save</button>
 </div>
 {% endblock content %}
 
@@ -73,17 +73,26 @@
 };
 reader.readAsText(file);
 
-function download(){
-    var text = document.getElementById("my-textarea").value;
-    text = text.replace(/\n/g, "\r\n"); // To retain the Line breaks.
-    var blob = new Blob([text], { type: "text/plain"});
-    var anchor = document.createElement("a");
-    anchor.download = "my-filename.txt";
-    anchor.href = window.URL.createObjectURL(blob);
-    anchor.target ="_blank";
-    anchor.style.display = "none"; // just to be safe!
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
- }
+const fileDownloadButton = document.getElementById('save');
+function localStorageToFile() {
+    const csv = JSON.stringify(localStorage['autosave']);
+    const csvAsBlob = new Blob([csv], {type: 'text/plain'});
+    const fileNameToSaveAs = 'local-storage.txt';
+    const downloadLink = document.getElementById('save');
+    downloadLink.download = fileNameToSaveAs;
+    if (window.URL !== null) {
+        // Chrome allows the link to be clicked without actually adding it to the DOM
+        downloadLink.href = window.URL.createObjectURL(csvAsBlob);
+        downloadLink.target = `_blank`;
+    } else {
+        downloadLink.href = window.URL.createObjectURL(csvAsBlob);
+        downloadLink.target = `_blank`;
+        downloadLink.style.display = 'none';
+        // add .download so works in Firefox desktop.
+        document.body.appendChild(downloadLink.download);
+    }
+    downloadLink.click();
+}
+// file download button event listener
+fileDownloadButton.addEventListener('click', localStorageToFile); 
 </script>
