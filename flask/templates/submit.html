@@ -60,7 +60,7 @@
     <p>Output:</p><br>
 
     <textarea class="form-control-file" rows="4" id="my-textarea">{{ output }} &#10;&#13;{{ output2 }}</textarea>
-    <button type="button" onclick="donwload()">Save</button>
+    <button type="button" onclick="download()">Save</button>
 </div>
 {% endblock content %}
 
@@ -72,4 +72,18 @@
     	textArea.value = e.target.result;
 };
 reader.readAsText(file);
+
+function download(){
+    var text = document.getElementById("my-textarea").value;
+    text = text.replace(/\n/g, "\r\n"); // To retain the Line breaks.
+    var blob = new Blob([text], { type: "text/plain"});
+    var anchor = document.createElement("a");
+    anchor.download = "my-filename.txt";
+    anchor.href = window.URL.createObjectURL(blob);
+    anchor.target ="_blank";
+    anchor.style.display = "none"; // just to be safe!
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+ }
 </script>
