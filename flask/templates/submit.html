@@ -8,8 +8,8 @@
 
             <div class="form-group col-md-12 mb-4">
                 {{ form.fastA.label(class_="form-control-label") }}
-                {{ form.fastA(class="form-control-file", rows="4", id="myTextArea") }}
-                <input id="myFile" type="file"/>
+                {{ form.fastA(class="form-control-file", rows="4", id="inputTextToSave") }}
+                <p>Select a File to Load:</p> <input type="file" id="fileToLoad"> <button onclick="loadFileAsText()">Load Selected File</button>
             </div>
             <div class ="row" align="center">
                 <div class="form-group col mb-4">
@@ -60,39 +60,53 @@
     <p>Output:</p><br>
 
     <textarea class="form-control-file" rows="4" id="save">{{ output }} &#10;&#13;{{ output2 }}</textarea>
-    <button type="button" value="save" id="save">Save</button>
+    <input id="inputFileNameToSaveAs"></input>
+    <button onclick="saveTextAsFile()">Save Output to File</button>
 </div>
 {% endblock content %}
 
 <script>
-	var file = document.getElementById("myFile").files[0];
-	var reader = new FileReader();
-	reader.onload = function (e) {
-    	var textArea = document.getElementById("myTextArea");
-    	textArea.value = e.target.result;
-};
-reader.readAsText(file);
+function saveTextAsFile()
+{
+	var textToWrite = document.getElementById("inputTextToSave").value;
+	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+	var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
 
-const fileDownloadButton = document.getElementById('save');
-function localStorageToFile() {
-    const csv = JSON.stringify(localStorage['autosave']);
-    const csvAsBlob = new Blob([csv], {type: 'text/plain'});
-    const fileNameToSaveAs = 'local-storage.txt';
-    const downloadLink = document.getElementById('save');
-    downloadLink.download = fileNameToSaveAs;
-    if (window.URL !== null) {
-        // Chrome allows the link to be clicked without actually adding it to the DOM
-        downloadLink.href = window.URL.createObjectURL(csvAsBlob);
-        downloadLink.target = `_blank`;
-    } else {
-        downloadLink.href = window.URL.createObjectURL(csvAsBlob);
-        downloadLink.target = `_blank`;
-        downloadLink.style.display = 'none';
-        // add .download so works in Firefox desktop.
-        document.body.appendChild(downloadLink.download);
-    }
-    downloadLink.click();
+	var downloadLink = document.createElement("a");
+	downloadLink.download = fileNameToSaveAs;
+	downloadLink.innerHTML = "Download File";
+	if (window.webkitURL != null)
+	{
+		// Chrome allows the link to be clicked
+		// without actually adding it to the DOM.
+		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+	}
+	else
+	{
+		// Firefox requires the link to be added to the DOM
+		// before it can be clicked.
+		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+		downloadLink.onclick = destroyClickedElement;
+		downloadLink.style.display = "none";
+		document.body.appendChild(downloadLink);
+	}
+
+	downloadLink.click();
 }
-// file download button event listener
-fileDownloadButton.addEventListener('click', localStorageToFile); 
+
+function destroyClickedElement(event)
+{
+	document.body.removeChild(event.target);
+}
+
+function loadFileAsText()
+{
+	var fileToLoad = document.getElementById("fileToLoad").files[0];
+
+	var fileReader = new FileReader();
+	fileReader.onload = function(fileLoadedEvent) 
+	{
+		var textFromFileLoaded = fileLoadedEvent.target.result;
+		document.getElementById("inputTextToSave").value = textFromFileLoaded;
+	};
 </script>
