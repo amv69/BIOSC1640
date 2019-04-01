@@ -48,7 +48,7 @@ h1, h2, h3, h4, h5, h6 {
       rgba(5, 31, 44, 0.7) 90%,
       rgba(5, 31, 44, 0.9) 95%,
       // Solid to match the background.
-      rgba(5, 31, 44, 1.0) 100%
+      rgba(5, 31, 44, 1.0) 100%, url("static/HERO.PNG")
     );
   }
   height: 20%;
