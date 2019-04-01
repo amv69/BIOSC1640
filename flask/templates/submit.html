@@ -5,7 +5,6 @@
         {{ form.hidden_tag()}}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Submit FastA</legend>
-
             <div class="form-group col-md-12 mb-4">
                 {{ form.fastA.label(class_="form-control-label") }}
                 {{ form.fastA(class="form-control-file", rows="4", id="fileToLoad") }}
@@ -69,7 +68,7 @@
             {{ form.submit(class="btn btn-outline-info") }}
         </div>
     </form>
-    <p>Output:</p><br>
+    <p>Output:</p>
 
     <textarea class="form-control-file" rows="4" id="inputTextToSave">{{ output }} &#10;&#13;{{ output2 }}</textarea>
     <p>Name of File: <input id="inputFileNameToSaveAs">
