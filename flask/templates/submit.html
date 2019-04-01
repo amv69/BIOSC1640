@@ -17,24 +17,29 @@
                     {{ form.lengthOne(class="form-control") }}
                     <small class="text-muted">
                         Should not be smaller than X
-                    </small>
+                    </small><br>
 
                     {{ form.lengthTwo.label(class_="form-control-label") }}
                     {{ form.lengthTwo(class="form-control") }}
                     <small class="text-muted">
                         Should not be larger than X
-                    </small>
+                    </small><br>
 
                     {{ form.tempOne.label(class_="form-control-label") }}
                     {{ form.tempOne(class="form-control") }}
                     <small class="text-muted">
                         Should not be smaller than X
-                    </small>
+                    </small><br>
 
                     {{ form.tempTwo.label(class_="form-control-label") }}
                     {{ form.tempTwo(class="form-control") }}
                     <small class="text-muted">
                         Should not be larger than X
+                    </small><br>
+                    {{ form.maxTile.label(class_="form-control-label") }}
+                    {{ form.maxTile(class="form-control") }}
+                    <small class="text-muted">
+                        Should not be smaller than X
                     </small>
                 </div>
                 <div class="form-group col mb-6">
@@ -42,13 +47,13 @@
                     {{ form.newSeq(class="form-control") }}
                     <small class="text-muted">
                         Sequence to Include or Mask
-                    </small>
+                    </small><br>
 
                     {{ form.areaOne.label(class_="form-control-label") }}
                     {{ form.areaOne(class="form-control") }}
                     <small class="text-muted">
                         Should not be larger than X
-                    </small>
+                    </small><br>
 
                     {{ form.areaTwo.label(class_="form-control-label") }}
                     {{ form.areaTwo(class="form-control") }}
@@ -59,15 +64,6 @@
                 
             </div>
 
-            <div class="row" align="center">
-                <div class="form-group col mb-4">
-                    {{ form.maxTile.label(class_="form-control-label") }}
-                    {{ form.maxTile(class="form-control") }}
-                    <small class="text-muted">
-                        Should not be smaller than X
-                    </small>
-                </div>
-            </div>
         </fieldset>
         <div class="form-group col-md-6">
             {{ form.submit(class="btn btn-outline-info") }}
