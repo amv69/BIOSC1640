@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5, h6 {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("photographer.jpg");
 
   /* Set a specific height */
-  height: 50%;
+  height: 30%;
   width: auto;
   /* Position and center the image to scale nicely on all screens */
   background-position: center;
@@ -52,5 +52,4 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   object-fit: contain;
   margin-top: -200px;
-  padding-bottom: -200px;
 }
