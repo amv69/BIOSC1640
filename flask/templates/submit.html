@@ -45,7 +45,7 @@
                     {{ form.newSeq.label(class_="form-control-label") }}
                     {{ form.newSeq(class="form-control") }}
                     <small class="text-muted">
-                        Sequence to Include or Mask
+                        Sequence to Include or Mask (Can give sequence or coordinates)
                     </small><br>
 
                     {{ form.areaOne.label(class_="form-control-label") }}
@@ -58,9 +58,14 @@
                     {{ form.areaTwo(class="form-control") }}
                     <small class="text-muted">
                         Should not be smaller than X
-                    </small>
+                    </small><br>
+                    {{ form.mask.label(class_="form-control-label") }}
+                    {{ form.mask(class="form-control") }}
+                    <small class="text-muted">
+                        Only choose if selecting to use option
+                    </small><br>
                 </div>
-                
+
             </div>
 
         </fieldset>
