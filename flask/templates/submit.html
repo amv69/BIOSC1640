@@ -38,7 +38,23 @@
                     </small>
                 </div>
                 <div class="form-group col mb-6">
-                    <h1> Test </h1>
+                    {{ form.newSeq.label(class_="form-control-label") }}
+                    {{ form.newSeq(class="form-control") }}
+                    <small class="text-muted">
+                        Sequence to Include or Mask
+                    </small>
+
+                    {{ form.areaOne.label(class_="form-control-label") }}
+                    {{ form.areaOne(class="form-control") }}
+                    <small class="text-muted">
+                        Should not be larger than X
+                    </small>
+
+                    {{ form.areaTwo.label(class_="form-control-label") }}
+                    {{ form.areaTwo(class="form-control") }}
+                    <small class="text-muted">
+                        Should not be smaller than X
+                    </small>
                 </div>
                 
             </div>

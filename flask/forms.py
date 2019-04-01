@@ -10,6 +10,9 @@ class Parameters(FlaskForm):
     tempOne = StringField('Temperature Minimum ', validators=[DataRequired()])
     tempTwo = StringField('Temperature Maximum ', validators=[DataRequired()])
     maxTile = StringField('Maximum Tile Length ', validators=[DataRequired()])
+    newSeq = StringField('Chosen Oligo')
+    areaOne = StringField('Starting Position to Select')
+    areaTwo = StringField('Ending Position')
     submit = SubmitField('SUBMIT')
     output = StringField('Output', widget=TextArea())
 
