@@ -11,31 +11,36 @@
                 {{ form.fastA(class="form-control-file", rows="4", id="fileToLoad") }}
                 <p>Select a File to Load:</p> <input type="file" id="fileToLoad"> <button onclick="loadFileAsText()">Load Selected File</button>
             </div>
+            <div class="row container-fluid">
+                <div class="form-group col mb-6">
+                    {{ form.lengthOne.label(class_="form-control-label") }}
+                    {{ form.lengthOne(class="form-control") }}
+                    <small class="text-muted">
+                        Should not be smaller than X
+                    </small>
 
-            <div class="form-group col mb-4">
-                {{ form.lengthOne.label(class_="form-control-label") }}
-                {{ form.lengthOne(class="form-control") }}
-                <small class="text-muted">
-                    Should not be smaller than X
-                </small>
+                    {{ form.lengthTwo.label(class_="form-control-label") }}
+                    {{ form.lengthTwo(class="form-control") }}
+                    <small class="text-muted">
+                        Should not be larger than X
+                    </small>
 
-                {{ form.lengthTwo.label(class_="form-control-label") }}
-                {{ form.lengthTwo(class="form-control") }}
-                <small class="text-muted">
-                    Should not be larger than X
-                </small>
+                    {{ form.tempOne.label(class_="form-control-label") }}
+                    {{ form.tempOne(class="form-control") }}
+                    <small class="text-muted">
+                        Should not be smaller than X
+                    </small>
 
-                {{ form.tempOne.label(class_="form-control-label") }}
-                {{ form.tempOne(class="form-control") }}
-                <small class="text-muted">
-                    Should not be smaller than X
-                </small>
-
-                {{ form.tempTwo.label(class_="form-control-label") }}
-                {{ form.tempTwo(class="form-control") }}
-                <small class="text-muted">
-                    Should not be larger than X
-                </small>
+                    {{ form.tempTwo.label(class_="form-control-label") }}
+                    {{ form.tempTwo(class="form-control") }}
+                    <small class="text-muted">
+                        Should not be larger than X
+                    </small>
+                </div>
+                <div class="form-group col mb-6">
+                    <h1> Test </h1>
+                </div>
+                
             </div>
 
             <div class="row" align="center">
