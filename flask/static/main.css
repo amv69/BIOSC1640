@@ -39,7 +39,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-image {
-  :before {
     background-image: linear-gradient(
       rgba(5, 31, 44, 0.0) 0%,
       rgba(5, 31, 44, 0.0) 70%,
@@ -48,9 +47,7 @@ h1, h2, h3, h4, h5, h6 {
       rgba(5, 31, 44, 0.7) 90%,
       rgba(5, 31, 44, 0.9) 95%,
       // Solid to match the background.
-      rgba(5, 31, 44, 1.0) 100%, url("static/HERO.PNG")
-    );
-  }
+      rgba(5, 31, 44, 1.0) 100%), url("static/HERO.PNG");
   height: 20%;
   background-position: center;
   background-repeat: no-repeat;
