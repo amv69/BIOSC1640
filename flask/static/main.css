@@ -44,12 +44,12 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Set a specific height */
   height: 30%;
-  width: 80%;
+  width: auto;
   /* Position and center the image to scale nicely on all screens */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  object-fit: contain;
   margin-top: -200px;
+  overflow:hidden;
 }
