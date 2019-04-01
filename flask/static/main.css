@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Set a specific height */
   height: 30%;
-  width: auto;
+  width: 80%;
   /* Position and center the image to scale nicely on all screens */
   background-position: center;
   background-repeat: no-repeat;
