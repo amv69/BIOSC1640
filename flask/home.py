@@ -784,7 +784,7 @@ def submit():
             output2 = pretty_print_oligos(thisSeq, tile_oligos_with_gaps(thisSeq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = maxTile ))
             return render_template('submit.html', form=form, output=output, output2=output2)
         elif newSeq is not '{''}':
-            thisList = include(new_seq = newSeq, seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile)
+            thisList = include(newSeq = newSeq, seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile)
             output2 = thisList
             return render_template('submit.html', form=form, output=output, output2=output2)
         else:
