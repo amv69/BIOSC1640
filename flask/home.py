@@ -759,17 +759,6 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '051259712ab12de981acb'
 
-data = [
-    {
-        'fastA': 'ATCG',
-        'lengthOne': '5',
-        'lengthTwo': '10',
-        'tempOne': '20',
-        'tempTwo': '40',
-    }
-
-]
-
 @app.route("/")
 @app.route("/home")
 def hello():
