@@ -691,7 +691,7 @@ def mask(seq, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOne, areaTw
 
 def include(newSeq, seq, min_len, max_len, min_tm, max_tm, max_untiled_len):
     spe_seq = newSeq.upper()
-    if check_subseq(seq, spe_seq):
+    if spe_seq in seq:
         sub_seqs = sub_seq(seq, spe_seq)
         print("Here we split the seq!!")
         for sub_seq in sub_seqs:
