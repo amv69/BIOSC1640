@@ -691,10 +691,10 @@ def mask(spe_seq, seq, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOn
         sub_seqs = sub_seq(seq, spe_seq)
         print("Here we split the seq!!")
         for sub_seq in sub_seqs:
-            pretty_print_oligos(sub_seq,tile_oligos_with_gaps(sub_seq, min_len, max_len, min_tm, max_tm, max_untiled_len))
+           my_list =  pretty_print_oligos(sub_seq,tile_oligos_with_gaps(sub_seq, min_len, max_len, min_tm, max_tm, max_untiled_len))
     else:
-        pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len, max_len, min_tm, max_tm, max_untiled_len))
-
+        my_list = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len, max_len, min_tm, max_tm, max_untiled_len))
+    return my_list
 
 def pretty_print_oligos(seq, oligos):
     """
@@ -773,7 +773,8 @@ def submit():
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
         if areaOne is not '{''}':
-            output2 = mask(spe_seq = newSeq, seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile, areaOne = areaOne, areaTwo = areaTwo)
+            thisList[] = mask(spe_seq = newSeq, seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile, areaOne = areaOne, areaTwo = areaTwo)
+            output2 = thisList
             return render_template('submit.html', form=form, output=output, output2=output2)
         else:
             output2 = pretty_print_oligos(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = maxTile ))
