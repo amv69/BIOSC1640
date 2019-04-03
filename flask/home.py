@@ -761,10 +761,13 @@ def submit():
         maxTile = int(maxTileString[2:-2])
         print({form.areaOne.data})
         if {form.areaOne.data} is not '{''}':
-            areaOneString = str({form.areaOne.data})
-            areaTwoString = str({form.areaTwo.data})
-            areaOne = int(areaOneString[2:-2])
-            areaTwo = int(areaTwoString[2:-2])
+            try:
+                areaOneString = str({form.areaOne.data})
+                areaTwoString = str({form.areaTwo.data})
+                areaOne = int(areaOneString[2:-2])
+                areaTwo = int(areaTwoString[2:-2])
+            except:
+                continue
         newSeq = str({form.newSeq.data})[2:-2]
         mask = str({form.mask.data})
         print(mask)
