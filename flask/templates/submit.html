@@ -7,8 +7,7 @@
             <legend class="border-bottom mb-4">Submit FastA</legend>
             <div class="form-group col-md-12 mb-4">
                 <form action="getfile" method="POST" enctype="multipart/form-data">
-                    {{ form.fastA.label(class_="form-control-label") }}
-                    {{ form.fastA(class="form-control-file", rows="4", id="fileToLoad") }}
+
                     Project file path: <input type="file" name="myfile"><br>
                     <input type="submit" value="Submit">
                 </form>
