@@ -6,9 +6,12 @@
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Submit FastA</legend>
             <div class="form-group col-md-12 mb-4">
-                {{ form.fastA.label(class_="form-control-label") }}
-                {{ form.fastA(class="form-control-file", rows="4", id="fileToLoad") }}
-                <p>Select a File to Load:</p> <input type="file" id="fileToLoad"> <button onclick="loadFileAsText()">Load Selected File</button>
+                <form action="getfile" method="POST" enctype="multipart/form-data">
+                    {{ form.fastA.label(class_="form-control-label") }}
+                    {{ form.fastA(class="form-control-file", rows="4", id="fileToLoad") }}
+                    Project file path: <input type="file" name="myfile"><br>
+                    <input type="submit" value="Submit">
+                </form>
             </div>
             <div class="row container-fluid">
                 <div class="form-group col mb-6">
@@ -81,45 +84,3 @@
         <button onclick="saveTextAsFile()">Save Output to File</button>
 </div>
 {% endblock content %}
-
-<script>
-    function saveTextAsFile() {
-        var textToWrite = document.getElementById("inputTextToSave").value;
-        var textFileAsBlob = new Blob([textToWrite], {
-            type: 'text/plain'
-        });
-        var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
-
-        var downloadLink = document.createElement("a");
-        downloadLink.download = fileNameToSaveAs;
-        downloadLink.innerHTML = "Download File";
-        if (window.webkitURL != null) {
-            // Chrome allows the link to be clicked
-            // without actually adding it to the DOM.
-            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-        } else {
-            // Firefox requires the link to be added to the DOM
-            // before it can be clicked.
-            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-            downloadLink.onclick = destroyClickedElement;
-            downloadLink.style.display = "none";
-            document.body.appendChild(downloadLink);
-        }
-
-        downloadLink.click();
-    }
-
-    function destroyClickedElement(event) {
-        document.body.removeChild(event.target);
-    }
-
-    function loadFileAsText() {
-        var fileToLoad = document.getElementById("fileToLoad").files[0];
-
-        var fileReader = new FileReader();
-        fileReader.onload = function(fileLoadedEvent) {
-            var textFromFileLoaded = fileLoadedEvent.target.result;
-            document.getElementById("inputTextToSave").value = textFromFileLoaded;
-        };
-
-</script>
