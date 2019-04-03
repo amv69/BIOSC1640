@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 from forms import Parameters
+from werkzeug import secure_filename
 import bioutil
 import math
 import time
@@ -779,6 +780,18 @@ def about():
     return render_template('about.html', title='About')
 
 @app.route("/submit", methods=['GET', 'POST'])
+def getfile():
+    if request.method == 'POST':
+        file = request.files['myfile']
+        filename = secure_filename(file.filename) 
+        file.save(os.path.join('static',filename))
+        with open("static/") as f:
+            file_content = f.read()
+        return file_content     
+    else:
+        ({form.fastA.data}) = request.args.get['myfile']
+    return ({form.fastA.data})
+
 def submit():
     form = Parameters()
     output = 'Answer will show here'
