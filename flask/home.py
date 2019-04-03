@@ -672,6 +672,36 @@ def tile_oligos_with_gaps(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len =
 
     return oligos
 
+def check_subseq(seq, spe_seq, min_len, max_len):
+    """
+    cases return false"
+    1. subseq is longer than seq
+    2. subseq is too small (e.g. smaller than 4 or smaller than min_len)
+    3. subseq has no exact match with seq
+    """
+    if len(spe_seq) > len(seq):
+        print("1")
+        return False
+    elif len(spe_seq) < min_len or len(spe_seq) > max_len:
+        print("2")
+        return False
+    elif (seq.find(spe_seq) == -1):
+        print("3")
+        return False
+    else:
+        return True
+ 
+def sub_seq(seq, spe_seq, min_tm, max_tm, min_len, max_len):
+    """
+   Rules:
+   1. if the result sub_seq is smaller than min_len, discard it
+   2. if spe_seq fits, return a list of the sub_seqs
+    """
+    sub_seqs = ["",""]
+    sub_seqs[0] = seq[0:seq.find(spe_seq)]
+    sub_seqs[1] = seq[seq.find(spe_seq)+len(seq):]
+    return sub_seqs
+
 def mask(seq, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOne, areaTwo):
     # store regions to mask i.e. change to Xs, in a list of tuple. The tuple consist of the start and end position of each region.
     mask_regions = []
@@ -690,12 +720,13 @@ def mask(seq, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOne, areaTw
     return str(seq)
 
 def include(newSeq, seq, min_len, max_len, min_tm, max_tm, max_untiled_len):
+    my_list = []
     spe_seq = newSeq.upper()
-    if spe_seq in seq:
-        sub_seqs = sub_seq(seq, spe_seq)
+    if check_subseq(seq, spe_seq, min_len, max_len):
+        sub_seqs = sub_seq(seq, spe_seq, min_tm, max_tm, min_len, max_len)
         print("Here we split the seq!!")
         for sub_seq in sub_seqs:
-           my_list =  pretty_print_oligos(sub_seq,tile_oligos_with_gaps(sub_seq, min_len, max_len, min_tm, max_tm, max_untiled_len))
+           my_list.append(pretty_print_oligos(sub_seq,tile_oligos_with_gaps(sub_seq, min_len, max_len, min_tm, max_tm, max_untiled_len)))
     else:
         my_list = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len, max_len, min_tm, max_tm, max_untiled_len))
     return my_list
