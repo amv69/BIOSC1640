@@ -770,7 +770,7 @@ def submit():
         except:
             print('No Masking')
         newSeq = str({form.newSeq.data})[2:-2]
-        mask = str({form.mask.data})
+        maskOrNot = str({form.mask.data})
         thisList = []
 
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
