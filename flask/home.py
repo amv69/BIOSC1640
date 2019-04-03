@@ -805,16 +805,16 @@ def submit():
         except:
             print('No Masking')
         newSeq = str({form.newSeq.data})[2:-2]
-        maskOrNot = str({form.mask.data})
+        maskOrInclude = str({form.mask.data})
         thisList = []
 
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
-        if areaOne is not '{''}':
+        if maskOrInclude is 'mask':
             thisSeq = mask(seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile, areaOne = areaOne, areaTwo = areaTwo)
             output2 = pretty_print_oligos(thisSeq, tile_oligos_with_gaps(thisSeq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = maxTile ))
             return render_template('submit.html', form=form, output=output, output2=output2)
-        elif newSeq is not '{''}':
+        elif maskOrInclude is 'include':
             thisList = include(newSeq = newSeq, seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile)
             output2 = thisList
             return render_template('submit.html', form=form, output=output, output2=output2)
