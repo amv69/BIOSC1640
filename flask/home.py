@@ -748,7 +748,6 @@ def submit():
     form = Parameters()
     output = 'Answer will show here'
     if form.validate_on_submit():
-        print('test')
         seq = str({form.fastA.data})[2:-2]
         lengthOneString = str({form.lengthOne.data})
         lengthTwoString = str({form.lengthTwo.data})
@@ -760,11 +759,12 @@ def submit():
         tempOne = int(tempOneString[2:-2])
         tempTwo = int(tempTwoString[2:-2])
         maxTile = int(maxTileString[2:-2])
-        areaOneString = str({form.areaOne.data})
-        areaTwoString = str({form.areaTwo.data})
+        if {form.areaOne.data} is not None:
+            areaOneString = str({form.areaOne.data})
+            areaTwoString = str({form.areaTwo.data})
+            areaOne = int(areaOneString[2:-2])
+            areaTwo = int(areaTwoString[2:-2])
         newSeq = str({form.newSeq.data})[2:-2]
-        areaOne = int(areaOneString[2:-2])
-        areaTwo = int(areaTwoString[2:-2])
         mask = str({form.mask.data})
         print(mask)
         print(areaOne)
