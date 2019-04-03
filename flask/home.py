@@ -672,7 +672,7 @@ def tile_oligos_with_gaps(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len =
 
     return oligos
 
-def mask(newSeq, seq, oligos, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOne, areaTwo):
+def mask(spe_seq, seq, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOne, areaTwo):
     # store regions to mask i.e. change to Xs, in a list of tuple. The tuple consist of the start and end position of each region.
     mask_regions = []
  
@@ -760,21 +760,24 @@ def submit():
         tempTwo = int(tempTwoString[2:-2])
         maxTile = int(maxTileString[2:-2])
         print({form.areaOne.data})
-        if {form.areaOne.data} is not '{''}':
-            try:
-                areaOneString = str({form.areaOne.data})
-                areaTwoString = str({form.areaTwo.data})
-                areaOne = int(areaOneString[2:-2])
-                areaTwo = int(areaTwoString[2:-2])
-            except:
-                print('No Masking')
+        try:
+            areaOneString = str({form.areaOne.data})
+            areaTwoString = str({form.areaTwo.data})
+            areaOne = int(areaOneString[2:-2])
+            areaTwo = int(areaTwoString[2:-2])
+        except:
+            print('No Masking')
         newSeq = str({form.newSeq.data})[2:-2]
         mask = str({form.mask.data})
-        
+
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
-        output2 = pretty_print_oligos(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = maxTile ))
-        return render_template('submit.html', form=form, output=output, output2=output2)
+        if areaOne is not '{''}':
+            output2 = mask(newSeq, seq, lengthOne, lengthTwo, tempOne, tempTwo, maxTile, areaOne, areaTwo)
+            return render_template('submit.html', form=form, output=output, output2=output2)
+        else:
+            output2 = pretty_print_oligos(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = maxTile ))
+            return render_template('submit.html', form=form, output=output, output2=output2)
     return render_template('submit.html', title='Submit', form=form)
     
     
