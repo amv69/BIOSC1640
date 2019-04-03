@@ -759,7 +759,7 @@ def submit():
         tempOne = int(tempOneString[2:-2])
         tempTwo = int(tempTwoString[2:-2])
         maxTile = int(maxTileString[2:-2])
-        if {form.areaOne.data} is not None:
+        if {form.areaOne.data} is not {''}:
             areaOneString = str({form.areaOne.data})
             areaTwoString = str({form.areaTwo.data})
             areaOne = int(areaOneString[2:-2])
