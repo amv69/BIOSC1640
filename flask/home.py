@@ -780,17 +780,6 @@ def about():
     return render_template('about.html', title='About')
 
 @app.route("/submit", methods=['GET', 'POST'])
-def getfile():
-    if request.method == 'POST':
-        file = request.files['myfile']
-        filename = secure_filename(file.filename) 
-        file.save(os.path.join('static',filename))
-        with open("static/") as f:
-            file_content = f.read()
-        return file_content     
-    else:
-        result = request.args.get('myfile')
-    return result
 
 def submit():
     form = Parameters()
