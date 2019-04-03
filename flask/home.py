@@ -762,7 +762,7 @@ app.config['SECRET_KEY'] = '051259712ab12de981acb'
 @app.route("/")
 @app.route("/home")
 def hello():
-    return render_template('home.html', data=data)
+    return render_template('home.html')
 
 @app.route("/about")
 def about():
@@ -772,7 +772,6 @@ def about():
 
 def submit():
     form = Parameters()
-    output = 'Answer will show here'
     if form.validate_on_submit():
         seq = str({form.fastA.data})[2:-2]
         lengthOneString = str({form.lengthOne.data})
