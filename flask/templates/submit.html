@@ -6,9 +6,8 @@
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Submit FastA</legend>
             <div class="form-group col-md-12 mb-4">
-                {{ form.fastA.label(class_="form-control-label") }}
-                {{ form.fastA(class="form-control-file", rows="4", id="fileToLoad") }}
-                <p>Select a File to Load:</p> <input type="file" id="fileToLoad"> <button onclick="loadFileAsText()">Load Selected File</button>
+                    {{ form.fastA.label(class_="form-control-label") }}
+                    {{ form.fastA(class="form-control-file", rows="4") }}
             </div>
             <div class="row container-fluid">
                 <div class="form-group col mb-6">
@@ -76,8 +75,7 @@
     </form>
     <p>Output:</p>
 
-    <textarea class="form-control-file" rows="4" id="inputTextToSave">{{ output }} &#10;&#13;{{ output2 }}</textarea>
-    <p>Name of File: <input id="inputFileNameToSaveAs">
-        <button onclick="saveTextAsFile()">Save Output to File</button>
+    <textarea class="form-control-file" rows="4" id="textbox">{{ output }} &#10;&#13;{{ output2 }}</textarea><button id="create">Create file</button><a download="info.txt" id="downloadlink" style="display: none">Download</a>
 </div>
 {% endblock content %}
+
