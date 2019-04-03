@@ -765,6 +765,9 @@ def submit():
         newSeq = str({form.newSeq.data})[2:-2]
         areaOne = int(areaOneString[2:-2])
         areaTwo = int(areaTwoString[2:-2])
+        mask = str({form.mask.data})
+        print(mask)
+        print(areaOne)
 
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
