@@ -672,6 +672,29 @@ def tile_oligos_with_gaps(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len =
 
     return oligos
 
+def mask(newSeq, seq, oligos, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOne, areaTwo):
+    # store regions to mask i.e. change to Xs, in a list of tuple. The tuple consist of the start and end position of each region.
+    mask_regions = []
+ 
+    # turn the seq string into character list to achieve faster speed
+    seq_list = list(seq)
+    mask_start = areaOne
+    mask_end = areaTwo
+    mask_regions.append((mask_start, mask_end))
+    # replace the mask_region seqence to X and keep the other sequences untouched
+    for mask_region in mask_regions:
+        seq_list[mask_region[0] : mask_region[1]] = 'X' * (mask_region[1] - mask_region[0])
+    # join the list into a string and assign back to the variable seq:
+    seq = "".join(seq_list)
+    spe_seq = newSeq.upper()
+    if check_subseq(seq, spe_seq):
+        sub_seqs = sub_seq(seq, spe_seq)
+        print("Here we split the seq!!")
+        for sub_seq in sub_seqs:
+            pretty_print_oligos(sub_seq,tile_oligos_with_gaps(sub_seq, min_len, max_len, min_tm, max_tm, max_untiled_len))
+    else:
+        pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len, max_len, min_tm, max_tm, max_untiled_len))
+
 
 def pretty_print_oligos(seq, oligos):
     """
@@ -737,6 +760,11 @@ def submit():
         tempOne = int(tempOneString[2:-2])
         tempTwo = int(tempTwoString[2:-2])
         maxTile = int(maxTileString[2:-2])
+        areaOneString = str({form.areaOne.data})
+        areaTwoString = str({form.areaTwo.data})
+        newSeq = str({form.newSeq.data})[2:-2]
+        areaOne = int(areaOneString[2:-2])
+        areaTwo = int(areaTwoString[2:-2])
 
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
