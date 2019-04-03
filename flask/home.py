@@ -789,8 +789,8 @@ def getfile():
             file_content = f.read()
         return file_content     
     else:
-        ({form.fastA.data}) = request.args.get['myfile']
-    return ({form.fastA.data})
+        form.fastA.data = request.args.get['myfile']
+    return form.fastA.data
 
 def submit():
     form = Parameters()
