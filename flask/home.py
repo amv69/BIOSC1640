@@ -767,7 +767,7 @@ def submit():
                 areaOne = int(areaOneString[2:-2])
                 areaTwo = int(areaTwoString[2:-2])
             except:
-                continue
+                print('No Masking')
         newSeq = str({form.newSeq.data})[2:-2]
         mask = str({form.mask.data})
         print(mask)
