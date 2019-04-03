@@ -760,6 +760,8 @@ def submit():
         tempTwo = int(tempTwoString[2:-2])
         maxTile = int(maxTileString[2:-2])
         print({form.areaOne.data})
+        areaOne = '{''}'
+        areaTwo = '{''}'
         try:
             areaOneString = str({form.areaOne.data})
             areaTwoString = str({form.areaTwo.data})
