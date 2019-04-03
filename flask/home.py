@@ -672,7 +672,7 @@ def tile_oligos_with_gaps(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len =
 
     return oligos
 
-def mask(spe_seq, seq, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOne, areaTwo):
+def mask(seq, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOne, areaTwo):
     # store regions to mask i.e. change to Xs, in a list of tuple. The tuple consist of the start and end position of each region.
     mask_regions = []
  
@@ -686,6 +686,10 @@ def mask(spe_seq, seq, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOn
         seq_list[mask_region[0] : mask_region[1]] = 'X' * (mask_region[1] - mask_region[0])
     # join the list into a string and assign back to the variable seq:
     seq = "".join(seq_list)
+
+    return str(seq)
+
+def include(newSeq, seq, min_len, max_len, min_tm, max_tm, max_untiled_len)
     spe_seq = newSeq.upper()
     if check_subseq(seq, spe_seq):
         sub_seqs = sub_seq(seq, spe_seq)
@@ -776,7 +780,11 @@ def submit():
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
         if areaOne is not '{''}':
-            thisList = mask(spe_seq = newSeq, seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile, areaOne = areaOne, areaTwo = areaTwo)
+            thisSeq = mask(seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile, areaOne = areaOne, areaTwo = areaTwo)
+            output2 = pretty_print_oligos(thisSeq, tile_oligos_with_gaps(thisSeq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = maxTile ))
+            return render_template('submit.html', form=form, output=output, output2=output2)
+        elif newSeq is not '{''}':
+            thisList = include(new_seq = newSeq, seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile)
             output2 = thisList
             return render_template('submit.html', form=form, output=output, output2=output2)
         else:
