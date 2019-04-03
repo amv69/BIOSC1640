@@ -689,7 +689,7 @@ def mask(seq, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOne, areaTw
 
     return str(seq)
 
-def include(newSeq, seq, min_len, max_len, min_tm, max_tm, max_untiled_len)
+def include(newSeq, seq, min_len, max_len, min_tm, max_tm, max_untiled_len):
     spe_seq = newSeq.upper()
     if check_subseq(seq, spe_seq):
         sub_seqs = sub_seq(seq, spe_seq)
