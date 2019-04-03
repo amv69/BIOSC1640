@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField, StringField
+from wtforms import IntegerField, SubmitField, StringField, SelectField
 from wtforms.validators import DataRequired, Optional
 from wtforms.widgets import TextArea
 
@@ -10,6 +10,10 @@ class Parameters(FlaskForm):
     tempOne = StringField('Temperature Minimum ', validators=[DataRequired()])
     tempTwo = StringField('Temperature Maximum ', validators=[DataRequired()])
     maxTile = StringField('Maximum Tile Length ', validators=[DataRequired()])
+    mask = SelectField('Mask or Include', choices=[('none', 'None'), ('mask', 'Mask'), ('include', 'Include')])
+    newSeq = StringField('Chosen Oligo')
+    areaOne = StringField('Starting Position to Select')
+    areaTwo = StringField('Ending Position')
     submit = SubmitField('SUBMIT')
     output = StringField('Output', widget=TextArea())
 

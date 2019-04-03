@@ -672,6 +672,64 @@ def tile_oligos_with_gaps(seq, min_tm = 70, max_tm = 80, min_len = 40, max_len =
 
     return oligos
 
+def check_subseq(seq, spe_seq, min_len, max_len):
+    """
+    cases return false"
+    1. subseq is longer than seq
+    2. subseq is too small (e.g. smaller than 4 or smaller than min_len)
+    3. subseq has no exact match with seq
+    """
+    if len(spe_seq) > len(seq):
+        print("1")
+        return False
+    elif len(spe_seq) < min_len or len(spe_seq) > max_len:
+        print("2")
+        return False
+    elif (seq.find(spe_seq) == -1):
+        print("3")
+        return False
+    else:
+        return True
+ 
+def sub_seq(seq, spe_seq, min_tm, max_tm, min_len, max_len):
+    """
+   Rules:
+   1. if the result sub_seq is smaller than min_len, discard it
+   2. if spe_seq fits, return a list of the sub_seqs
+    """
+    sub_seqs = ["",""]
+    sub_seqs[0] = seq[0:seq.find(spe_seq)]
+    sub_seqs[1] = seq[seq.find(spe_seq)+len(seq):]
+    return sub_seqs
+
+def mask(seq, min_len, max_len, min_tm, max_tm, max_untiled_len, areaOne, areaTwo):
+    # store regions to mask i.e. change to Xs, in a list of tuple. The tuple consist of the start and end position of each region.
+    mask_regions = []
+ 
+    # turn the seq string into character list to achieve faster speed
+    seq_list = list(seq)
+    mask_start = areaOne
+    mask_end = areaTwo
+    mask_regions.append((mask_start, mask_end))
+    # replace the mask_region seqence to X and keep the other sequences untouched
+    for mask_region in mask_regions:
+        seq_list[mask_region[0] : mask_region[1]] = 'X' * (mask_region[1] - mask_region[0])
+    # join the list into a string and assign back to the variable seq:
+    seq = "".join(seq_list)
+
+    return str(seq)
+
+def include(newSeq, seq, min_len, max_len, min_tm, max_tm, max_untiled_len):
+    my_list = []
+    spe_seq = newSeq.upper()
+    if check_subseq(seq, spe_seq, min_len, max_len):
+        sub_seqs = sub_seq(seq, spe_seq, min_tm, max_tm, min_len, max_len)
+        print("Here we split the seq!!")
+        for sub_seq in sub_seqs:
+           my_list.append(pretty_print_oligos(sub_seq,tile_oligos_with_gaps(sub_seq, min_len, max_len, min_tm, max_tm, max_untiled_len)))
+    else:
+        my_list = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len, max_len, min_tm, max_tm, max_untiled_len))
+    return my_list
 
 def pretty_print_oligos(seq, oligos):
     """
@@ -725,7 +783,6 @@ def submit():
     form = Parameters()
     output = 'Answer will show here'
     if form.validate_on_submit():
-        print('test')
         seq = str({form.fastA.data})[2:-2]
         lengthOneString = str({form.lengthOne.data})
         lengthTwoString = str({form.lengthTwo.data})
@@ -737,11 +794,33 @@ def submit():
         tempOne = int(tempOneString[2:-2])
         tempTwo = int(tempTwoString[2:-2])
         maxTile = int(maxTileString[2:-2])
+        print({form.areaOne.data})
+        areaOne = '{''}'
+        areaTwo = '{''}'
+        try:
+            areaOneString = str({form.areaOne.data})
+            areaTwoString = str({form.areaTwo.data})
+            areaOne = int(areaOneString[2:-2])
+            areaTwo = int(areaTwoString[2:-2])
+        except:
+            print('No Masking')
+        newSeq = str({form.newSeq.data})[2:-2]
+        maskOrInclude = str({form.mask.data})
+        thisList = []
 
         #output2 = pretty_print_oligos(seq,tile_oligos_with_gaps(seq, min_len = 40, max_len = 50, min_tm=70, max_tm=80,max_untiled_len = 25))
         output = str(('#Target sequence: %d nts' % (len(seq)))) + str(('\t'.join(['Start', 'End', 'Length', 'Tm_low', 'Tm_high', 'X_pos', 'Ambig_pos', 'Num_targets', 'Target_seq', 'Antisense_oligo'])))
-        output2 = pretty_print_oligos(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = maxTile ))
-        return render_template('submit.html', form=form, output=output, output2=output2)
+        if maskOrInclude is 'mask':
+            thisSeq = mask(seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile, areaOne = areaOne, areaTwo = areaTwo)
+            output2 = pretty_print_oligos(thisSeq, tile_oligos_with_gaps(thisSeq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = maxTile ))
+            return render_template('submit.html', form=form, output=output, output2=output2)
+        elif maskOrInclude is 'include':
+            thisList = include(newSeq = newSeq, seq = seq, min_len = lengthOne, max_len = lengthTwo, min_tm = tempOne, max_tm = tempTwo, max_untiled_len =  maxTile)
+            output2 = thisList
+            return render_template('submit.html', form=form, output=output, output2=output2)
+        else:
+            output2 = pretty_print_oligos(seq, tile_oligos_with_gaps(seq, min_len = lengthOne, max_len = lengthTwo, min_tm= tempOne, max_tm= tempTwo, max_untiled_len = maxTile ))
+            return render_template('submit.html', form=form, output=output, output2=output2)
     return render_template('submit.html', title='Submit', form=form)
     
     
