@@ -789,7 +789,7 @@ def getfile():
             file_content = f.read()
         return file_content     
     else:
-        result = request.args.get['myfile']
+        result = request.args.get('myfile')
     return result
 
 def submit():
